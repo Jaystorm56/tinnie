@@ -78,22 +78,30 @@
         console.log('Response data:', data);
   
         if (response.ok) {
-          console.log('Setting download link:', data.downloadUrl);
-          document.getElementById('downloadLink').href = data.downloadUrl;
+          console.log('Handling download link:', data.downloadUrl);
+  
+          // Create a temporary link for downloading
+          const downloadLink = document.createElement('a');
+          downloadLink.href = data.downloadUrl;
+          downloadLink.download = 'processed-report.pdf'; // Specify the filename
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
   
           console.log('Setting QR code image:', data.qrCodeUrl);
           document.getElementById('qrCodeImage').src = data.qrCodeUrl;
   
           console.log('Showing result div');
           document.getElementById('result').style.display = 'block';
+  
+          // Optionally update the download button text or disable it
+          document.getElementById('downloadLink').textContent = 'Download Complete';
         } else {
           console.error('Server error:', data.error);
           alert('Error: ' + data.error);
         }
       } catch (err) {
         console.error('Fetch error:', err);
-        console.error('Fetch error message:', err.message);
-        console.error('Fetch error name:', err.name);
         alert('Error during upload: ' + err.message);
       }
     });
