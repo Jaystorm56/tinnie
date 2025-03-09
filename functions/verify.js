@@ -150,7 +150,7 @@ exports.handler = async (event, context) => {
         <div class="main-sec">
           <div class="card">
             <div class="img">
-              <img src="/ppic.jpeg" alt="Profile Picture">
+            <img src="https://pdf-upload-site.netlify.app/ppic.jpeg" alt="Profile Picture">
             </div>
             <span>About Me</span>
             <p class="info">I’m Adewale Adetoun, a dedicated construction engineer specializing in testing and quality assurance. I focus on ensuring the structural integrity and safety of projects through rigorous testing and inspection. With a keen eye for detail and a commitment to excellence, I work to deliver reliable and durable results for every client.</p>
