@@ -1,0 +1,6 @@
+[build]
+  publish = "public"          # Directory with static files
+  functions = "functions"     # Directory with Netlify Functions
+
+[functions]
+  node_bundler = "esbuild"    # Use esbuild to bundle Node.js dependencies
