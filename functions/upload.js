@@ -9,16 +9,12 @@ exports.handler = async (event, context) => {
   console.log('Function invoked with event:', event);
 
   try {
-    // Decode the body if base64-encoded
     const bodyBuffer = event.isBase64Encoded
       ? Buffer.from(event.body, 'base64')
       : Buffer.from(event.body);
 
-    // Parse multipart/form-data
     const boundary = event.headers['content-type'].split('boundary=')[1];
     const parts = multipart.parse(bodyBuffer, boundary);
-
-    console.log('Parsed parts:', parts);
 
     let clientName = '';
     let fileData = null;
@@ -41,7 +37,8 @@ exports.handler = async (event, context) => {
     fs.writeFileSync(filePath, fileData);
 
     const uniqueCode = uuidv4().slice(0, 6).toUpperCase();
-    const qrCodeUrl = `https://pdf-upload-site.netlify.app/verify/${uniqueCode}`;
+    // Include clientName in the QR code URL
+    const qrCodeUrl = `https://pdf-upload-site.netlify.app/.netlify/functions/verify?code=${uniqueCode}&client=${encodeURIComponent(clientName)}`;
     const qrCodePath = `/tmp/${uniqueCode}-qrcode.png`;
     console.log('Generating QR code at:', qrCodePath);
     await QRCode.toFile(qrCodePath, qrCodeUrl);
