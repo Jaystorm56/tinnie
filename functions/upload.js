@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
 
     // Generate unique code and QR code
     const uniqueCode = uuidv4().slice(0, 6).toUpperCase();
-    const qrCodeUrl = `http://yourdomain.netlify.app/verify/${uniqueCode}`; // Update with your Netlify domain later
+    const qrCodeUrl = `http://pdf-upload-site.netlify.app/verify/${uniqueCode}`; // Update with your Netlify domain later
     const qrCodePath = `/tmp/${uniqueCode}-qrcode.png`;
     await QRCode.toFile(qrCodePath, qrCodeUrl);
 
