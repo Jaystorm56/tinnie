@@ -1,4 +1,4 @@
-const formidable = require('formidable');
+const multipart = require('parse-multipart-data');
 const QRCode = require('qrcode');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
@@ -9,48 +9,39 @@ exports.handler = async (event, context) => {
   console.log('Function invoked with event:', event);
 
   try {
-    // Check if the body is base64-encoded (Netlify does this for binary data)
-    let bodyBuffer = event.body;
-    if (event.isBase64Encoded) {
-      bodyBuffer = Buffer.from(event.body, 'base64');
-    } else {
-      bodyBuffer = Buffer.from(event.body);
+    // Decode the body if base64-encoded
+    const bodyBuffer = event.isBase64Encoded
+      ? Buffer.from(event.body, 'base64')
+      : Buffer.from(event.body);
+
+    // Parse multipart/form-data
+    const boundary = event.headers['content-type'].split('boundary=')[1];
+    const parts = multipart.parse(bodyBuffer, boundary);
+
+    console.log('Parsed parts:', parts);
+
+    let clientName = '';
+    let fileData = null;
+    let originalFilename = 'uploaded.pdf';
+
+    for (const part of parts) {
+      if (part.name === 'clientName') {
+        clientName = part.data.toString();
+      } else if (part.name === 'report') {
+        fileData = part.data;
+        originalFilename = part.filename || 'uploaded.pdf';
+      }
     }
 
-    console.log('Parsing form data');
-    const form = new formidable.IncomingForm({
-      uploadDir: '/tmp',
-      keepExtensions: true,
-      maxFileSize: 2 * 1024 * 1024, // Limit to 2MB
-    });
-
-    // Parse the buffer manually
-    const { fields, files } = await new Promise((resolve, reject) => {
-      form.parse(bodyBuffer, (err, fields, files) => {
-        if (err) {
-          console.error('Form parsing error:', err);
-          reject(err);
-        } else {
-          resolve({ fields, files });
-        }
-      });
-    });
-
-    console.log('Fields:', fields);
-    console.log('Files:', files);
-
-    const clientName = fields.clientName;
-    const uploadedFile = files.report;
-    if (!uploadedFile || !uploadedFile.path) {
-      throw new Error('No file uploaded or file path missing');
+    if (!fileData) {
+      throw new Error('No file uploaded');
     }
 
-    const filePath = uploadedFile.path;
-    const originalFilename = uploadedFile.name || 'uploaded.pdf';
-    console.log('File path:', filePath);
+    const filePath = `/tmp/uploaded-${Date.now()}.pdf`;
+    fs.writeFileSync(filePath, fileData);
 
     const uniqueCode = uuidv4().slice(0, 6).toUpperCase();
-    const qrCodeUrl = `https://pdf-upload-site.netlify.app/verify/${uniqueCode}`; // Use your Netlify domain
+    const qrCodeUrl = `https://pdf-upload-site.netlify.app/verify/${uniqueCode}`;
     const qrCodePath = `/tmp/${uniqueCode}-qrcode.png`;
     console.log('Generating QR code at:', qrCodePath);
     await QRCode.toFile(qrCodePath, qrCodeUrl);
@@ -93,7 +84,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // Ensure CORS works
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         message: 'File processed successfully!',
