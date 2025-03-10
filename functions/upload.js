@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
       height: 80,
     });
 
-    firstPage.drawText(`Client: ${clientName} | Code: ${uniqueCode}`, {
+    firstPage.drawText(`Code: ${uniqueCode}`, {
       x: 20,
       y: 35,
       size: 10,
