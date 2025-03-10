@@ -26,7 +26,7 @@ exports.handler = async (event, context) => {
             padding: 20px;
             min-height: 100vh;
             width: 100%;
-            background: url('https://pdf-upload-site.netlify.app/logo.jpeg') no-repeat center center fixed;
+            background: url('https://civilcrafteng.netlify.app/logo.jpeg') no-repeat center center fixed;
             background-size: contain; 
             background-color: black;
             display: flex;
@@ -202,7 +202,7 @@ exports.handler = async (event, context) => {
           <!-- About Us -->
           <div class="card">
             <div class="img">
-              <img src="https://pdf-upload-site.netlify.app/ppic.jpeg" alt="Profile Picture">
+              <img src="https://civilcrafteng.netlify.app/ppic.jpeg" alt="Profile Picture">
             </div>
             <span>About Us</span>
             <p class="info">

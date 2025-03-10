@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
 
     const uniqueCode = uuidv4().slice(0, 6).toUpperCase();
     // Include clientName in the QR code URL
-    const qrCodeUrl = `https://pdf-upload-site.netlify.app/.netlify/functions/verify?code=${uniqueCode}&client=${encodeURIComponent(clientName)}`;
+    const qrCodeUrl = `https://civilcrafteng.netlify.app/.netlify/functions/verify?code=${uniqueCode}&client=${encodeURIComponent(clientName)}`;
     const qrCodePath = `/tmp/${uniqueCode}-qrcode.png`;
     console.log('Generating QR code at:', qrCodePath);
     await QRCode.toFile(qrCodePath, qrCodeUrl);
