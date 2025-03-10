@@ -71,8 +71,8 @@ exports.handler = async (event, context) => {
             margin: 1em;
           }
           .card .img {
-            width: clamp(4.9em, 15.5vw, 6.5em);
-            height: clamp(4.9em, 15.5vw, 6.5em);
+            width: clamp(6em, 15.5vw, 6.5em);
+            height: clamp(6em, 15.5vw, 6.5em);
             border-radius: 15px;
             margin: 10px auto;
           }
