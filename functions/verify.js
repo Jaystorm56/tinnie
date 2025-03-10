@@ -27,7 +27,8 @@ exports.handler = async (event, context) => {
             min-height: 100vh;
             width: 100%;
             background: url('https://pdf-upload-site.netlify.app/logo.jpeg') no-repeat center center fixed;
-            background-size: cover; /* Scales logo to cover the entire background */
+            background-size: contain; /* Scales logo to cover the entire background */
+            background-repeat: repeat;
             display: flex;
             justify-content: center;
             align-items: center;
