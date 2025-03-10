@@ -27,8 +27,7 @@ exports.handler = async (event, context) => {
             min-height: 100vh;
             width: 100%;
             background: url('https://pdf-upload-site.netlify.app/logo.jpeg') no-repeat center center fixed;
-            background-size: contain; /* Scales logo to cover the entire background */
-            background-repeat: repeat;
+            background-size: contain;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,17 +37,15 @@ exports.handler = async (event, context) => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-around;
-            width: 90%; /* Responsive width */
-            max-width: 1200px; /* Max width for large screens */
-            min-height: 80vh;
+            width: 90%;
+            max-width: 1200px;
             padding: 20px;
           }
           .card {
             width: 100%;
-            max-width: 17em; /* Limits width on larger screens */
+            max-width: 17em;
             min-height: 22.5em;
-            background: rgba(23, 23, 23, 0.9); /* Semi-transparent for readability */
+            background: rgba(23, 23, 23, 0.9);
             transition: 0.3s ease-in-out;
             clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
             border-top-right-radius: 20px;
@@ -62,18 +59,19 @@ exports.handler = async (event, context) => {
             font-weight: bold;
             color: white;
             text-align: center;
-            font-size: clamp(1em, 2.5vw, 1.2em); /* Responsive font size */
+            font-size: clamp(1em, 2.5vw, 1.2em);
+            margin-bottom: 10px;
           }
           .card .info {
             font-weight: 400;
             color: white;
-            text-align: center;
+            text-align: left;
             font-size: clamp(0.72em, 2vw, 0.9em);
             margin: 1em;
           }
           .card .img {
-            width: clamp(4.8em, 15vw, 6em); /* Responsive image size */
-            height: clamp(4.8em, 15vw, 6em);
+            width: clamp(4.9em, 15.5vw, 6.5em);
+            height: clamp(4.9em, 15.5vw, 6.5em);
             border-radius: 15px;
             margin: 10px auto;
           }
@@ -137,10 +135,19 @@ exports.handler = async (event, context) => {
             to { transform: scale(1.09); }
           }
           /* Responsive adjustments */
+          @media (min-width: 769px) {
+            .main-sec {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 20px;
+            }
+            .card, .cardd {
+              margin: 0;
+            }
+          }
           @media (max-width: 768px) {
             .main-sec {
               flex-direction: column;
-              min-height: auto;
               padding: 10px;
             }
             .card, .cardd {
@@ -164,16 +171,7 @@ exports.handler = async (event, context) => {
       </head>
       <body>
         <div class="main-sec">
-          <div class="card">
-            <div class="img">
-              <img src="https://pdf-upload-site.netlify.app/ppic.jpeg" alt="Profile Picture">
-            </div>
-            <span>About Us</span>
-            <p class="info">
-              Civil Craft Engineering Limited is an indigenous company duly registered according to the laws of Nigeria with a track record of delivering exceptional civil engineering solutions also experienced in quality control and assurance of construction materials, structural stability and integrity of existing structures and other civil engineering services. Our company combines technical expertise, innovative approaches, and a commitment excellence to provide tailored services to clients across various sectors. 
-              With a strong focus on quality, safety, and customer satisfaction, Civil Craft Engineering Limited strives to build lasting relationships and contribute to the developments of Nigeria’s infrastructure
-            </p>
-          </div>
+          <!-- Verified Report -->
           <div class="verified">
             <div class="cardd">
               <div class="header">
@@ -194,6 +192,55 @@ exports.handler = async (event, context) => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- About Us -->
+          <div class="card">
+            <div class="img">
+              <img src="https://pdf-upload-site.netlify.app/ppic.jpeg" alt="Profile Picture">
+            </div>
+            <span>About Us</span>
+            <p class="info">
+              Civil Craft Engineering Limited is an indigenous company duly registered according to the laws of Nigeria with a track record of delivering exceptional civil engineering solutions also experienced in quality control and assurance of construction materials, structural stability and integrity of existing structures and other civil engineering services. Our company combines technical expertise, innovative approaches, and a commitment excellence to provide tailored services to clients across various sectors. 
+              With a strong focus on quality, safety, and customer satisfaction, Civil Craft Engineering Limited strives to build lasting relationships and contribute to the developments of Nigeria’s infrastructure
+            </p>
+          </div>
+
+          <!-- Professional Services Offered -->
+          <div class="card">
+            <span>Professional Services Offered</span>
+            <p class="info">
+               Civil Engineering Consulting Services<br>
+               Non-Destructive Integrity Test (Roads, Buildings and Bridges)<br>
+               Route soil, Sub-soil, Geophysical Investigations & Foundation Probing<br>
+               Pavement Evaluation, Materials Geotechnics and Quality control<br>
+               Concrete Compressive & Tensile Strength Test<br>
+               Pile Integrity, Plate and load Test<br>
+               Piling Works and Foundation Repairs<br>
+               Production of Structural, Architectural & Mechanical Drawing<br>
+               Project Management & Development<br>
+               Building Construction, Repairs & Renovations
+            </p>
+          </div>
+
+          <!-- Health Safety & Environment (HSE) Policy -->
+          <div class="card">
+            <span>Health Safety & Environment (HSE) Policy</span>
+            <p class="info">
+              We strive to achieve an Incident Free workplace<br>
+               Zero incident<br>
+               Zero Loss<br>
+               No harm to People<br>
+               No damage to properties and environment.<br>
+              We usually achieve this by:<br>
+              1. Ensuring that no activity taken priority over Health Safety and Environment (HSE).<br>
+              2. Creating and maintaining a safe and healthy environment for all personnel.<br>
+              3. Ensuring that HSE is everyone’s responsibility by promoting continuous improvement and learning on HSE.<br>
+              4. Promoting technical and operational solution to improve HSE<br>
+              5. Identifying and eliminating hazards before they become problematic<br>
+              6. Implementing our HSE management system.<br>
+              7. Implementing our quality management.
+            </p>
           </div>
         </div>
       </body>
