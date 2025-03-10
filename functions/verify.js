@@ -27,7 +27,8 @@ exports.handler = async (event, context) => {
             min-height: 100vh;
             width: 100%;
             background: url('https://pdf-upload-site.netlify.app/logo.jpeg') no-repeat center center fixed;
-            background-size: 100% 100%; /* Covers whole page without stretching */
+            background-size: contain; 
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -167,8 +168,8 @@ exports.handler = async (event, context) => {
               margin: 0.5em;
             }
             .card .img {
-              width: clamp(6em, 20vw, 8em); /* Increased size for mobile */
-              height: clamp(6em, 20vw, 8em); /* Increased size for mobile */
+              width: clamp(7em, 20vw, 8em); /* Increased size for mobile */
+              height: clamp(7em, 20vw, 8em); /* Increased size for mobile */
             }
           }
         </style>
